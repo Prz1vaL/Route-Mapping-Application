@@ -7,7 +7,7 @@ import com.stacs.routemappingapp.model.route.Route;
 
 public class ModelRouteTest {
     @Test
-	public void shouldAddRoute() {
+	public void shouldCreateRoute() {
 		Route route = new Route("N64", "NorthRoad", "StAndrews", "Dundee");
 
         assertEqual(route.getUniqueRouteNumber(), "N64");
