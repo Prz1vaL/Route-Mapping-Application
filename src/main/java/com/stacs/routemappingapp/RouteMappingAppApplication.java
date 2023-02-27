@@ -10,6 +10,7 @@ public class RouteMappingAppApplication {
 
 		SpringApplication.run(RouteMappingAppApplication.class, args);
 
+
 	}
 
 }
