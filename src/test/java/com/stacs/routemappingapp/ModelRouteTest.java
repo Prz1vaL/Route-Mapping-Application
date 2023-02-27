@@ -10,9 +10,9 @@ public class ModelRouteTest {
 	public void shouldCreateRoute() {
 		Route route = new Route("N64", "NorthRoad", "StAndrews", "Dundee");
 
-        assertEqual(route.getUniqueRouteNumber(), "N64");
-        assertEqual(route.getRouteName(), "NorthRoad");
-        assertEqual(route.getDestination(), "StAndrews");
-        assertEqual(route.getStartingPoint(), "Dundee");
+        assertEquals(route.getUniqueRouteNumber(), "N64");
+        assertEquals(route.getRouteName(), "NorthRoad");
+        assertEquals(route.getDestination(), "StAndrews");
+        assertEquals(route.getStartingPoint(), "Dundee");
 	}
 }
