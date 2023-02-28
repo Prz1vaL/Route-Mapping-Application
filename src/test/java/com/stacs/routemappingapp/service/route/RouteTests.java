@@ -161,7 +161,7 @@ public class RouteTests {
         String filePath = "src/test/java/com/stacs/routemappingapp/resources/data/route.ser";
 
         // Act
-        routeService.saveAppData(filePath);
+        routeService.saveAppData(filePath, route);
 
         // Assert
         FileInputStream fi = new FileInputStream(new File(filePath));
@@ -181,7 +181,7 @@ public class RouteTests {
         // Arrange
         String filePath = "src/test/java/com/stacs/routemappingapp/resources/data/route.ser";
         route.put("R1", new Route("R1", "Route 1", "Destination", "Starting Point"));
-        routeService.saveAppData(filePath);
+        routeService.saveAppData(filePath, route);
 
         // Act
         routeService.loadAppData(filePath);
@@ -224,7 +224,6 @@ public class RouteTests {
      */
     @Test
     public void shouldCallAllRoutesReturnsNonEmptyHashMap() {
-        Route route = new Route("R1", "Route 1", "Destination 1", "Starting Point 1");
         routeService.addRoute("R1", "Route 1", "Destination 1", "Starting Point 1");
 
         HashMap<String, Route> actualRoutes = routeService.callAllRoutes();
@@ -270,7 +269,6 @@ public class RouteTests {
      * Tests getRouteInfoByStopName with valid stop.
      */
     public void shouldGetRouteInfoByStopNameSucceeds() {
-        Route route = new Route("R1", "Route 1", "Destination 1", "Starting Point 1");
         routeService.addRoute("R1", "Route 1", "Destination 1", "Starting Point 1");
         String stopName = "Central Station";
         route.addStop(stopName, 1);
