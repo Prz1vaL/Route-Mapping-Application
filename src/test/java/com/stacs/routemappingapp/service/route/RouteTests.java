@@ -273,4 +273,30 @@ public class RouteTests {
             routeService.checkIfRouteNameIDMatch("R1", "Invalid Route Name");
         });
     }
+
+    /*
+     * Tests getRouteInfoByStopName with valid stop.
+     */
+    public void shouldGetRouteInfoByStopNameSucceeds() {
+        Route route = new Route("R1", "Route 1", "Destination 1", "Starting Point 1");
+        routeService.addRoute("R1", route);
+        String stopName = "Central Station";
+        route.addStop(stopName, 1);
+
+        Map<String, Route> actualRoutes = routeService.getRouteInfoByStopName(stopName);
+        Map<String, Route> expectedRoutes = new HashMap<>();
+        expectedRoutes.put("R1", route);
+
+        assertEquals(expectedRoutes, actualRoutes);
+    }
+
+    /*
+     * Tests getRouteInfoByStopName with invalid route name.
+     */
+    @Test
+    public void shouldGetRouteInfoByStopNameThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            routeService.getRouteInfoByStopName("Invalid Route Name");
+        });
+    }
 }
