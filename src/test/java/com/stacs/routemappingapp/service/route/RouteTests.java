@@ -173,7 +173,7 @@ public class RouteTests {
     @Test
     public void shouldLoadAppData() throws IOException, ClassNotFoundException {
         // Arrange
-        String filePath = "src/test/resources/route.ser";
+        String filePath = "src/test/java/com/stacs/routemappingapp/resources/route.ser";
         route.put("R1", new Route("R1", "Route 1", "Destination", "Starting Point"));
         routeService.saveAppData(filePath);
 
