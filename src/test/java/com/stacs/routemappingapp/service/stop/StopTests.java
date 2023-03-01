@@ -98,4 +98,28 @@ public class StopTests {
             stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
         });
     }
+
+    /*
+     * Test viewRoutesByStop with valid parameters.
+     */
+    @Test
+    public void shouldViewRoutesByStop() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.viewRoutesByStop("Cardinal");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStop with invalid parameters.
+     */
+    @Test
+    public void shouldViewRoutesByStopInvalid() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStop("");
+        });
+    }
 }
