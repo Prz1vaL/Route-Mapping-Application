@@ -70,7 +70,7 @@ public class RouteService implements Serializable {
             throw new IllegalArgumentException("Route ID already exists. \n");
         } else {
             //  Route newRoute = new Route(uniqueRouteNumber, routeName, destination, startingPoint);
-            route.put(uniqueRouteNumber, new Route(uniqueRouteNumber.toLowerCase(), routeName.toLowerCase(), destination.toLowerCase(), startingPoint.toLowerCase()));
+            route.put(uniqueRouteNumber.toLowerCase(), new Route(uniqueRouteNumber.toLowerCase(), routeName.toLowerCase(), destination.toLowerCase(), startingPoint.toLowerCase()));
         }
     }
 
