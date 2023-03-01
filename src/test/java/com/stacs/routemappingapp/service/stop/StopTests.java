@@ -533,7 +533,7 @@ public class StopTests {
      * Test ifStopExistsbyTime with no stopName.
      */
     @Test
-    public void shouldCheckIfStopExistsWithNoName(){
+    public void shouldCheckIfStopExistsByTimeWithNoName(){
         assertThrows(IllegalArgumentException.class, () -> {
             stopService.ifStopExistsbyTime("", "");
         });
@@ -543,7 +543,7 @@ public class StopTests {
      * Test checkIfStopExists where time is outside arrival and depart.
      */
     @Test
-    public void shouldCheckIfStopExistsFindsNothing(){
+    public void shouldCheckIfStopExistsByTimeFindsNothing(){
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
 
         assertThrows(IllegalArgumentException.class, () -> {
