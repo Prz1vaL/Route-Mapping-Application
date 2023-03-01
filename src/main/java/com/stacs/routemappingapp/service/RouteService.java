@@ -1,5 +1,6 @@
 package com.stacs.routemappingapp.service;
 
+
 import com.stacs.routemappingapp.model.route.Route;
 
 import java.io.*;
@@ -14,7 +15,7 @@ public class RouteService implements Serializable {
         if (name.matches("[a-zA-Z0-9]+")) {
 
         } else {
-            throw new IllegalArgumentException("Route ID is not valid. \n");
+            throw new IllegalArgumentException("ID is not valid. \n");
         }
     }
 
@@ -22,7 +23,7 @@ public class RouteService implements Serializable {
         if (name.matches("[a-zA-Z]+")) {
 
         } else {
-            throw new IllegalArgumentException("Route Name is not valid. \n");
+            throw new IllegalArgumentException(" Name is not valid. \n");
         }
 
     }
@@ -69,7 +70,6 @@ public class RouteService implements Serializable {
         if (route.containsKey(uniqueRouteNumber.toLowerCase())) {
             throw new IllegalArgumentException("Route ID already exists. \n");
         } else {
-            //  Route newRoute = new Route(uniqueRouteNumber, routeName, destination, startingPoint);
             route.put(uniqueRouteNumber.toLowerCase(), new Route(uniqueRouteNumber.toLowerCase(), routeName.toLowerCase(), destination.toLowerCase(), startingPoint.toLowerCase()));
         }
     }
@@ -99,21 +99,16 @@ public class RouteService implements Serializable {
 
 
     public void checkIfRouteNameIDMatch(String uniqueRouteNumber, String routeName) {
-        if (!route.isEmpty()) {
-            for (Map.Entry<String, Route> entry : route.entrySet()) {
-                if (uniqueRouteNumber.toLowerCase().equals(entry.getKey()) && (routeName.toLowerCase().equals(entry.getValue().getRouteName()))) {
-                    System.out.println("Route ID and Route Name matches. \n");
-                    break;
-                } else {
-                    throw new IllegalArgumentException("Route ID and Route Name does not match. \n");
-                }
+        if (route.containsKey(uniqueRouteNumber.toLowerCase())) {
+            if (routeName.toLowerCase().equals(route.get(uniqueRouteNumber.toLowerCase()).getRouteName())) {
+                System.out.println("Route ID and Route Name matches. \n");
+            } else {
+                throw new IllegalArgumentException("Route ID and Route Name does not match. \n");
             }
-
         } else {
-            throw new IllegalArgumentException("No routes exists in the system. \n");
+            throw new IllegalArgumentException("Route ID does not exist. \n");
         }
     }
-
 
     public Map<String, Route> getRouteInfoByStopName(String routeIdentifier) {
         Map<String, Route> routeInfoByStopName = new HashMap<>();
@@ -131,8 +126,7 @@ public class RouteService implements Serializable {
         return routeInfoByStopName;
     }
 
-    public void wipeData() {
+    public void wipeRoutes() {
         route.clear();
     }
-
 }
