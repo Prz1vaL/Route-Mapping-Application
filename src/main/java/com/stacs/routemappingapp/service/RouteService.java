@@ -131,4 +131,8 @@ public class RouteService implements Serializable {
         return routeInfoByStopName;
     }
 
+    public void wipeData() {
+        route.clear();
+    }
+
 }
