@@ -309,9 +309,202 @@ public class StopTests {
     @Test
     public void shouldCheckIfScheduleIdentifierExistsWithExistingSI(){
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-        
+
         assertThrows(IllegalArgumentException.class, () -> {
             stopService.checkIfScheduleIdentifierExists("R1");
+        });
+    }
+
+    /*
+     * Test viewAllStops successfully.
+     */
+    @Test
+    public void shouldViewAllStops() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertEquals(1, stopService.viewAllStops().size());
+    }
+
+    /*
+     * Test viewAllStops where stop does not exist.
+     */
+    @Test
+    public void shouldViewAllStopsThrowsExeption(){       
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewAllStops();
+        });
+    }
+
+    /*
+     * Test deleteStop successfully.
+     */
+    @Test
+    public void shouldDeleteStop() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.deleteStop("R1");
+        });
+
+        assertEquals(0, stopService.viewAllStops().size());
+    }
+
+    /*
+     * Test deleteStop where stop does not exist.
+     */
+    @Test
+    public void shouldDeleteStopWithStopNotExisting(){       
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.deleteStop("R1");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopTime with valid name and time.
+     */
+    @Test
+    public void shouldViewRoutesByStopTime() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.viewRoutesByStopTime("Cardinal", "16:00");
+        });
+
+        assertEquals(1, stopService.viewRoutesByStopTime().size());
+    }
+
+    /*
+     * Test viewRoutesByStopTime with no stopName.
+     */
+    @Test
+    public void shouldViewRoutesByStopTimeWithNoName(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopTime("", "16:00");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopTime with no time.
+     */
+    @Test
+    public void shouldViewRoutesByStopTimeWithNoTime(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopTime("Cardinal", "");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopTimeDept with valid name and time.
+     */
+    @Test
+    public void shouldViewRoutesByStopTimeDept() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.viewRoutesByStopTimeDept("Cardinal", "13:00");
+        });
+
+        assertEquals(1, stopService.viewRoutesByStopTimeDept().size());
+    }
+
+    /*
+     * Test viewRoutesByStopTimeDept with no stopName.
+     */
+    @Test
+    public void shouldViewRoutesByStopTimeDeptWithNoName(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopTimeDept("", "13:00");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopTimeDept with no time.
+     */
+    @Test
+    public void shouldViewRoutesByStopTimeDeptWithNoTime(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopTimeDept("Cardinal", "");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopDay with valid name and day.
+     */
+    @Test
+    public void shouldViewRoutesByStopDay() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.viewRoutesByStopDay("Cardinal", "Tuesday");
+        });
+
+        assertEquals(1, stopService.viewRoutesByStopDay().size());
+    }
+
+    /*
+     * Test viewRoutesByStopDay with valid name and time,
+     * but does not exist.
+     */
+    @Test
+    public void shouldViewRoutesByStopDayFindsNothing() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.viewRoutesByStopDay("North Road", "Friday");
+        });
+
+        assertEquals(0, stopService.viewRoutesByStopDay().size());
+    }
+
+    /*
+     * Test viewRoutesByStopDay with no stopName.
+     */
+    @Test
+    public void shouldViewRoutesByStopDayWithNoName(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopDay("", "Friday");
+        });
+    }
+
+    /*
+     * Test viewRoutesByStopDay with no time.
+     */
+    @Test
+    public void shouldViewRoutesByStopDayWithNoDay(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopDay("Cardinal", "");
+        });
+    }
+
+    /*
+     * Test checkIfStopExists with valid name.
+     */
+    @Test
+    public void shouldCheckIfStopExists() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertDoesNotThrow(() -> {
+            stopService.checkIfStopExists("Cardinal");
+        });
+    }
+
+    /*
+     * Test checkIfStopExists with no stopName.
+     */
+    @Test
+    public void shouldCheckIfStopExistsWithNoName(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.checkIfStopExists("");
+        });
+    }
+
+    /*
+     * Test checkIfStopExists where name does not exist.
+     */
+    @Test
+    public void shouldCheckIfStopExistsFindsNothing(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.checkIfStopExists("North Road");
         });
     }
 }
