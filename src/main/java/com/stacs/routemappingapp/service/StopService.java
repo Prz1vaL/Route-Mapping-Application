@@ -109,6 +109,100 @@ public class StopService implements Serializable {
         }
     }
 
+    // Next Few Methods...
+
+    public void checkIfScheduleIdentifierValid(String scheduleIdentifier) {
+        if (scheduleIdentifier.isEmpty()) {
+            throw new IllegalArgumentException("No Schedule Identifier is given. \n");
+        }
+    }
+
+    public void isBeforeTime(String departureTime, String arrivalTime) {
+        if (departureTime.compareTo(arrivalTime) > 0) {
+            throw new IllegalArgumentException("Departure Time is after Arrival Time. \n");
+        }
+    }
+
+    public void checkIfStopNameValid(String stopName) {
+        if (stopName.isEmpty()) {
+            throw new IllegalArgumentException("No Stop Name is given. \n");
+        }
+    }
+
+    public void checkStopLocNamingConvention(String stopLocation) {
+        if (stopLocation.isEmpty() || stopLocation.isBlank()) {
+            throw new IllegalArgumentException("No Stop Location is given. \n");
+        } else if (stopLocation.matches("[a-zA-Z0-9]+")) {
+
+        } else {
+            throw new IllegalArgumentException("Invalid Stop Location Format \n");
+        }
+    }
+
+    public void checkIfScheduleIdentifierExists(String scheduleIdentifier) {
+        if (stop.containsKey(scheduleIdentifier.toLowerCase())) {
+            throw new IllegalArgumentException(" Schedule Identifier exists in the system, Create a new Identifier. \n");
+        }
+    }
+
+    public void deleteStop(String scheduleIdentifier) {
+        if (stop.containsKey(scheduleIdentifier.toLowerCase())) {
+            stop.remove(scheduleIdentifier.toLowerCase());
+        } else {
+            throw new IllegalArgumentException("No Stop exists in the system. \n");
+        }
+    }
+
+    public HashMap<String, Stop> viewAllStops() {
+        HashMap<String, Stop> viewAllStops = new HashMap<>();
+        if (stop.isEmpty()) {
+            throw new IllegalArgumentException("No stops exists in the system. \n");
+        } else {
+            for (Map.Entry<String, Stop> entry : stop.entrySet()) {
+                viewAllStops.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return viewAllStops;
+
+    }
+
+    public Map<String, Stop> viewRoutesByStopTime(String stopName, String arrivalTime) {
+        Map<String, Stop> viewRoutesByStopTime = new HashMap<>();
+        if (stopName.isEmpty() || stopName.isBlank()) {
+            throw new IllegalArgumentException("No Stop Name is given. \n");
+        } else {
+            for (Map.Entry<String, Stop> entry : stop.entrySet()) {
+                if (entry.getValue().getStopName().equalsIgnoreCase(stopName) && entry.getValue().getArrivalTime().equalsIgnoreCase(arrivalTime)) {
+                    viewRoutesByStopTime.put(entry.getKey(), entry.getValue());
+                }
+            }
+            if (viewRoutesByStopTime.isEmpty()) {
+                throw new IllegalArgumentException("The given time does not match with any stops in the system. TRY AGAIN ! \n");
+            }
+        }
+
+        return viewRoutesByStopTime;
+    }
+
+    public Map<String, Stop> viewRoutesByStopTimeDept(String stopName, String departureTime) {
+        Map<String, Stop> viewRoutesByStopTimeDept = new HashMap<>();
+        if (stopName.isEmpty() || stopName.isBlank()) {
+            throw new IllegalArgumentException("No Stop Name is given. \n");
+        } else if (!stopName.isEmpty() || !stopName.isBlank()) {
+            for (Map.Entry<String, Stop> entry : stop.entrySet()) {
+                if (entry.getValue().getStopName().equalsIgnoreCase(stopName) && entry.getValue().getDepartureTime().equalsIgnoreCase(departureTime)) {
+                    viewRoutesByStopTimeDept.put(entry.getKey(), entry.getValue());
+                }
+            }
+            if (viewRoutesByStopTimeDept.isEmpty()) {
+                throw new IllegalArgumentException("The given time does not match with any stops in the system. TRY AGAIN ! \n");
+            }
+        }
+        return viewRoutesByStopTimeDept;
+    }
+
+    // 3 More Methods... Remaining based on TDD.
+
 
 
 }
