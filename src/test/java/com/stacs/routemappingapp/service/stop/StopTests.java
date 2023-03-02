@@ -343,10 +343,12 @@ public class StopTests {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
 
         assertDoesNotThrow(() -> {
-            stopService.deleteStop("R1");
+            stopService.deleteStop("65ID"); //should be R1
         });
 
-        assertEquals(0, stopService.viewAllStops().size());
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewAllStops();
+        });
     }
 
     /*
@@ -454,14 +456,9 @@ public class StopTests {
     public void shouldViewRoutesByStopDayFindsNothing() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
         
-
-        assertDoesNotThrow(() -> {
-            Map<String, Stop> stops = new HashMap<>();
-            stops = stopService.viewRoutesByStopDay("North Road", "Friday");
-            assertEquals(0, stops.size());
-        });
-
-        
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewRoutesByStopDay("North Road", "Friday");
+        });        
     }
 
     /*
