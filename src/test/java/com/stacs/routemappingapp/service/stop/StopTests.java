@@ -435,13 +435,15 @@ public class StopTests {
     @Test
     public void shouldViewRoutesByStopDay() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-        Map<String, Stop> stops = new HashMap<>();
+        
 
         assertDoesNotThrow(() -> {
+            Map<String, Stop> stops = new HashMap<>();
             stops = stopService.viewRoutesByStopDay("Cardinal", "Tuesday");
+            assertEquals(1, stops.size());
         });
 
-        assertEquals(1, stops.size());
+        
     }
 
     /*
@@ -451,13 +453,15 @@ public class StopTests {
     @Test
     public void shouldViewRoutesByStopDayFindsNothing() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-        Map<String, Stop> stops = new HashMap<>();
+        
 
         assertDoesNotThrow(() -> {
+            Map<String, Stop> stops = new HashMap<>();
             stops = stopService.viewRoutesByStopDay("North Road", "Friday");
+            assertEquals(0, stops.size());
         });
 
-        assertEquals(0, stops.size());
+        
     }
 
     /*
@@ -520,13 +524,15 @@ public class StopTests {
     @Test
     public void checkIfStopExistsByTime() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-        Map<String,Stop> stops = new HashMap<>();
+        
 
         assertDoesNotThrow(() -> {
+            Map<String,Stop> stops = new HashMap<>();
             stops = stopService.ifStopExistsbyTime("Cardinal", "14:30");
+            assertEquals(1, stops.size());
         });
 
-        assertEquals(1, stops.size());
+        
     }
 
     /*
