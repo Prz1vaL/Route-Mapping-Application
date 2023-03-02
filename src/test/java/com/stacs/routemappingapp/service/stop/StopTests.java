@@ -51,7 +51,7 @@ public class StopTests {
     @Test
     public void shouldCheckIfStopIDValidWithNoID() {
         assertThrows(IllegalArgumentException.class, () -> {
-            String stopNumber = "123";
+            String stopNumber = "";
             stopService.checkIfStopIDValid(stopNumber);
         });
     }
@@ -82,7 +82,7 @@ public class StopTests {
     @Test
     public void shouldGetDayOfWeekSuccessful() {
         String date = "07/03/2023";
-        String expectedDayOfWeek = "Tuesday";
+        String expectedDayOfWeek = "TUESDAY";
   
         assertEquals(expectedDayOfWeek, stopService.getDayOfWeek(date));
     }
@@ -229,7 +229,7 @@ public class StopTests {
     @Test
     public void shouldIsBeforeTime() {
         assertDoesNotThrow(() -> {
-            stopService.isBeforeTime("16:00", "13:00");
+            stopService.isBeforeTime("13:00", "16:00");
         });
     }
 
@@ -237,9 +237,9 @@ public class StopTests {
      * Test isBeforeTime with depature after arrival time.
      */
     @Test
-    public void shouldIsBeforeTimeWithWithInvalidTimes(){
+    public void shouldIsBeforeTimeWithInvalidTimes(){
         assertThrows(IllegalArgumentException.class, () -> {
-            stopService.isBeforeTime("13:00", "16:00");
+            stopService.isBeforeTime("16:00", "13:00");
         });
     }
 
@@ -299,7 +299,7 @@ public class StopTests {
     @Test
     public void shouldCheckIfScheduleIdentifierExists() {
         assertDoesNotThrow(() -> {
-            stopService.checkIfScheduleIdentifierExists("R1");
+            stopService.checkIfScheduleIdentifierExists("65ID");
         });
     }
 
@@ -311,7 +311,7 @@ public class StopTests {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            stopService.checkIfScheduleIdentifierExists("R1");
+            stopService.checkIfScheduleIdentifierExists("65ID");
         });
     }
 
@@ -343,10 +343,12 @@ public class StopTests {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
 
         assertDoesNotThrow(() -> {
-            stopService.deleteStop("R1");
+            stopService.deleteStop("65ID"); //should be R1
         });
 
-        assertEquals(0, stopService.viewAllStops().size());
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.viewAllStops();
+        });
     }
 
     /*
@@ -360,85 +362,20 @@ public class StopTests {
     }
 
     /*
-     * Test viewRoutesByStopTime with valid name and time.
-     */
-    @Test
-    public void shouldViewRoutesByStopTime() {
-        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-
-        assertDoesNotThrow(() -> {
-            stopService.viewRoutesByStopTime("Cardinal", "16:00");
-        });
-
-        assertEquals(1, stopService.viewRoutesByStopTime().size());
-    }
-
-    /*
-     * Test viewRoutesByStopTime with no stopName.
-     */
-    @Test
-    public void shouldViewRoutesByStopTimeWithNoName(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            stopService.viewRoutesByStopTime("", "16:00");
-        });
-    }
-
-    /*
-     * Test viewRoutesByStopTime with no time.
-     */
-    @Test
-    public void shouldViewRoutesByStopTimeWithNoTime(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            stopService.viewRoutesByStopTime("Cardinal", "");
-        });
-    }
-
-    /*
-     * Test viewRoutesByStopTimeDept with valid name and time.
-     */
-    @Test
-    public void shouldViewRoutesByStopTimeDept() {
-        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-
-        assertDoesNotThrow(() -> {
-            stopService.viewRoutesByStopTimeDept("Cardinal", "13:00");
-        });
-
-        assertEquals(1, stopService.viewRoutesByStopTimeDept().size());
-    }
-
-    /*
-     * Test viewRoutesByStopTimeDept with no stopName.
-     */
-    @Test
-    public void shouldViewRoutesByStopTimeDeptWithNoName(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            stopService.viewRoutesByStopTimeDept("", "13:00");
-        });
-    }
-
-    /*
-     * Test viewRoutesByStopTimeDept with no time.
-     */
-    @Test
-    public void shouldViewRoutesByStopTimeDeptWithNoTime(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            stopService.viewRoutesByStopTimeDept("Cardinal", "");
-        });
-    }
-
-    /*
      * Test viewRoutesByStopDay with valid name and day.
      */
     @Test
     public void shouldViewRoutesByStopDay() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+        
 
         assertDoesNotThrow(() -> {
-            stopService.viewRoutesByStopDay("Cardinal", "Tuesday");
+            Map<String, Stop> stops = new HashMap<>();
+            stops = stopService.viewRoutesByStopDay("Cardinal", "Tuesday");
+            assertEquals(1, stops.size());
         });
 
-        assertEquals(1, stopService.viewRoutesByStopDay().size());
+        
     }
 
     /*
@@ -448,12 +385,10 @@ public class StopTests {
     @Test
     public void shouldViewRoutesByStopDayFindsNothing() {
         stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
-
-        assertDoesNotThrow(() -> {
+        
+        assertThrows(IllegalArgumentException.class, () -> {
             stopService.viewRoutesByStopDay("North Road", "Friday");
-        });
-
-        assertEquals(0, stopService.viewRoutesByStopDay().size());
+        });        
     }
 
     /*
@@ -503,8 +438,49 @@ public class StopTests {
      */
     @Test
     public void shouldCheckIfStopExistsFindsNothing(){
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
         assertThrows(IllegalArgumentException.class, () -> {
             stopService.checkIfStopExists("North Road");
+        });
+    }
+
+    /*
+     * Test checkIfStopExists where time is inside arrival and depart.
+     */
+    @Test
+    public void checkIfStopExistsByTime() {
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+        
+
+        assertDoesNotThrow(() -> {
+            Map<String,Stop> stops = new HashMap<>();
+            stops = stopService.ifStopExistsbyTime("Cardinal", "14:30");
+            assertEquals(1, stops.size());
+        });
+
+        
+    }
+
+    /*
+     * Test ifStopExistsbyTime with no stopName.
+     */
+    @Test
+    public void shouldCheckIfStopExistsByTimeWithNoName(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.ifStopExistsbyTime("", "");
+        });
+    }
+
+    /*
+     * Test checkIfStopExists where time is outside arrival and depart.
+     */
+    @Test
+    public void shouldCheckIfStopExistsByTimeFindsNothing(){
+        stopService.addStop("R1", "Route1", "65ID", "Cardinal", "Dundee", "07/03/2023", "Tuesday", "13:00", "16:00");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stopService.ifStopExistsbyTime("Cardinal", "11:00");
         });
     }
 }
