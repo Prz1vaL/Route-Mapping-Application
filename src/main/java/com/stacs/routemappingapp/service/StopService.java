@@ -166,43 +166,67 @@ public class StopService implements Serializable {
 
     }
 
-    public Map<String, Stop> viewRoutesByStopTime(String stopName, String arrivalTime) {
-        Map<String, Stop> viewRoutesByStopTime = new HashMap<>();
-        if (stopName.isEmpty() || stopName.isBlank()) {
-            throw new IllegalArgumentException("No Stop Name is given. \n");
+
+
+    // 4 More Methods... Remaining based on TDD.
+
+    public Map<String, Stop> viewRoutesByStopDay(String stopName, String day) {
+        Map<String, Stop> viewRoutesByStopDay = new HashMap<>();
+        if (stopName.isEmpty() || stopName.isBlank() || day.isEmpty() || day.isBlank()) {
+            throw new IllegalArgumentException("No Stop Name or Day is given. \n");
         } else {
             for (Map.Entry<String, Stop> entry : stop.entrySet()) {
-                if (entry.getValue().getStopName().equalsIgnoreCase(stopName) && entry.getValue().getArrivalTime().equalsIgnoreCase(arrivalTime)) {
-                    viewRoutesByStopTime.put(entry.getKey(), entry.getValue());
+                if (stopName.equalsIgnoreCase(entry.getValue().getStopName()) && day.equalsIgnoreCase(entry.getValue().getDay())) {
+                    viewRoutesByStopDay.put(entry.getKey(), entry.getValue());
                 }
             }
-            if (viewRoutesByStopTime.isEmpty()) {
-                throw new IllegalArgumentException("The given time does not match with any stops in the system. TRY AGAIN ! \n");
+            if (viewRoutesByStopDay.isEmpty()) {
+                throw new IllegalArgumentException("No Stop Name or Day is found. \n");
             }
         }
-
-        return viewRoutesByStopTime;
+        return viewRoutesByStopDay;
     }
 
-    public Map<String, Stop> viewRoutesByStopTimeDept(String stopName, String departureTime) {
-        Map<String, Stop> viewRoutesByStopTimeDept = new HashMap<>();
+    public void checkIfStopExists(String stopName) {
+        int count = 0;
         if (stopName.isEmpty() || stopName.isBlank()) {
             throw new IllegalArgumentException("No Stop Name is given. \n");
-        } else if (!stopName.isEmpty() || !stopName.isBlank()) {
+        }
+        else if(!stopName.isEmpty() || !stopName.isBlank()) {
             for (Map.Entry<String, Stop> entry : stop.entrySet()) {
-                if (entry.getValue().getStopName().equalsIgnoreCase(stopName) && entry.getValue().getDepartureTime().equalsIgnoreCase(departureTime)) {
-                    viewRoutesByStopTimeDept.put(entry.getKey(), entry.getValue());
+                if (entry.getValue().getStopName().equalsIgnoreCase(stopName)) {
+                    count += 1;
+                    break;
                 }
-            }
-            if (viewRoutesByStopTimeDept.isEmpty()) {
-                throw new IllegalArgumentException("The given time does not match with any stops in the system. TRY AGAIN ! \n");
+            } if (count == 0) {
+                throw new IllegalArgumentException("No Stop exists in the system. \n");
             }
         }
-        return viewRoutesByStopTimeDept;
     }
 
-    // 3 More Methods... Remaining based on TDD.
+    public void wipeStops() {
+        stop.clear();
+    }
 
-
+    public Map<String,Stop> ifStopExistsbyTime(String stopName, String time) {
+        Map<String, Stop> ifStopExistsbyTime = new HashMap<>();
+        if (stopName.isEmpty() || stopName.isBlank() || time.isEmpty() || time.isBlank()) {
+            throw new IllegalArgumentException("No Stop Name or Time is given. \n");
+        } else {
+            for (Map.Entry<String, Stop> entry : stop.entrySet()) {
+                if (entry.getValue().getStopName().equalsIgnoreCase(stopName)) {
+                    String arrivalTime = entry.getValue().getArrivalTime();
+                    String departureTime = entry.getValue().getDepartureTime();
+                    if (arrivalTime.compareTo(time) < 0 || departureTime.compareTo(time) > 0) {
+                        throw new IllegalArgumentException("No Stop exists in the system at the given time. \n");
+                    }
+                    else  {
+                        ifStopExistsbyTime.put(entry.getKey(), entry.getValue());
+                    }
+                }
+            }
+        }
+        return ifStopExistsbyTime;
+    }
 
 }
