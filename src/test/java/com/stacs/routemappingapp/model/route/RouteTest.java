@@ -1,7 +1,6 @@
 package com.stacs.routemappingapp.model.route;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,14 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Test class for Route
  */
 class RouteTest {
-    private final RestTemplate restTemplate = new RestTemplate();
+    Route route = new Route("N64", "NorthRoad", "StAndrews", "Dundee");
 
     /**
      * Test for getUniqueRouteNumber
      */
     @Test
-    void shouldGetUniqueRouteNumber() {
-        Route route = restTemplate.getForObject("http://localhost:8080/routes/N64", Route.class);
+    void getUniqueRouteNumber() {
         assertEquals(route.getUniqueRouteNumber(), "N64");
     }
 
@@ -24,8 +22,7 @@ class RouteTest {
      * Test for getRouteName
      */
     @Test
-    void shouldGetRouteName() {
-        Route route = restTemplate.getForObject("http://localhost:8080/routes/N64", Route.class);
+    void getRouteName() {
         assertEquals(route.getRouteName(), "NorthRoad");
     }
 
@@ -33,8 +30,7 @@ class RouteTest {
      * Test for getDestination
      */
     @Test
-    void shouldGetDestination() {
-        Route route = restTemplate.getForObject("http://localhost:8080/routes/N64", Route.class);
+    void getDestination() {
         assertEquals(route.getDestination(), "StAndrews");
     }
 
@@ -42,8 +38,7 @@ class RouteTest {
      * Test for getStartingPoint
      */
     @Test
-    void shouldGetStartingPoint() {
-        Route route = restTemplate.getForObject("http://localhost:8080/routes/N64", Route.class);
+    void getStartingPoint() {
         assertEquals(route.getStartingPoint(), "Dundee");
     }
 }
