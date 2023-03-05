@@ -6,13 +6,10 @@ import com.stacs.routemappingapp.service.RouteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -25,12 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,6 +42,9 @@ class RouteTest {
         mockMvc = MockMvcBuilders.standaloneSetup(routeController).build();
     }
 
+    /*
+     * Test to get routes
+     */
     @Test
     void shouldReturnListOfRoutes() throws Exception {
         Route route1 = new Route("123", "Route1", "Destination1", "StartingPoint1");
@@ -71,6 +67,9 @@ class RouteTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    /*
+     * Test to get route but empty
+     */
     @Test
     void shouldReturnEmptyListOfRoutes() throws Exception {
         when(routeService.getRoutes()).thenReturn(Collections.emptyList());
@@ -83,6 +82,9 @@ class RouteTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    /*
+     * Test to add route
+     */
     @Test
     void shouldAddRoute() throws Exception {
         Map<String, String> data = new HashMap<>();
@@ -90,15 +92,6 @@ class RouteTest {
         data.put("routeName", "Route1");
         data.put("destination", "Destination1");
         data.put("startingPoint", "StartingPoint1");
-
-        ArgumentCaptor<String> uniqueRouteNumberCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> routeNameCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> destinationCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> startingPointCaptor = ArgumentCaptor.forClass(String.class);
-
-
-        doNothing().when(routeService).addRoute(uniqueRouteNumberCaptor.capture(),
-            routeNameCaptor.capture(), destinationCaptor.capture(), startingPointCaptor.capture());
 
         // Perform the POST request
         mockMvc.perform(MockMvcRequestBuilders.post("/routes")
@@ -108,10 +101,8 @@ class RouteTest {
                 .andDo(MockMvcResultHandlers.print());
 
         // Verify that the addRoute method was called with the correct arguments
-        assertEquals("123", uniqueRouteNumberCaptor.getValue());
-        assertEquals("Route1", routeNameCaptor.getValue());
-        assertEquals("Destination1", destinationCaptor.getValue());
-        assertEquals("StartingPoint1", startingPointCaptor.getValue());
+        verify(routeService, times(1)).addRoute("123", "Route1",
+            "Destination1", "StartingPoint1");
     }
 
     // @Test
@@ -136,7 +127,9 @@ class RouteTest {
     //     });
     // }
 
-
+    /*
+     * Test to delete route
+     */
     @Test
     void shouldDeleteRoute() throws Exception {
         Route route = new Route("123", "Route 1", "Destination 1", "Starting Point 1");
@@ -146,6 +139,9 @@ class RouteTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+
+        // Verify that the deleteRoute method was called with the correct arguments
+        verify(routeService, times(1)).deleteRoute("123");
     }
 
     // @Test
