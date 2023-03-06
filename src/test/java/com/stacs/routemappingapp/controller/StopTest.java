@@ -1,6 +1,7 @@
-package com.stacs.routemappingapp.controller;
+package com.stacs.routemappingapp.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stacs.routemappingapp.api.StopController;
 import com.stacs.routemappingapp.model.stop.Stop;
 import com.stacs.routemappingapp.service.StopService;
 
@@ -180,7 +181,7 @@ class StopTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/stops/" + "stopName1" + '/' + "day1" + "/routes")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$[*].routeNumber", hasItems("uniqueRouteNumber1", "uniqueRouteNumber2")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[*].uniqueRouteNumber", hasItems("uniqueRouteNumber1", "uniqueRouteNumber2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].routeName", hasItems("routeName1", "routeName2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].scheduleIdentifier", hasItems("scheduleIdentifier1", "scheduleIdentifier2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].stopName", hasItems("stopName1", "stopName1")))
@@ -214,7 +215,7 @@ class StopTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/stops" + "/routes" + '/' + "stopName1" + '/' + "13:00")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$[*].uniqueRouteNumber1", hasItems("uniqueRouteNumber1", "uniqueRouteNumber2")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[*].uniqueRouteNumber", hasItems("uniqueRouteNumber1", "uniqueRouteNumber2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].routeName", hasItems("routeName1", "routeName2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].scheduleIdentifier", hasItems("scheduleIdentifier1", "scheduleIdentifier2")))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].stopName", hasItems("stopName1", "stopName1")))
