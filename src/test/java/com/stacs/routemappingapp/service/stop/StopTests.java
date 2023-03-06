@@ -62,7 +62,7 @@ public class StopTests {
     @Test
     public void shouldCheckIfDateValid(){
         assertDoesNotThrow(() -> {
-            stopService.checkIfDateValid("07/03/2023");
+            stopService.checkIfDateValid("07-03-2023");
         });
     }
 
@@ -81,7 +81,7 @@ public class StopTests {
      */
     @Test
     public void shouldGetDayOfWeekSuccessful() {
-        String date = "07/03/2023";
+        String date = "07-03-2023";
         String expectedDayOfWeek = "TUESDAY";
   
         assertEquals(expectedDayOfWeek, stopService.getDayOfWeek(date));
@@ -92,7 +92,7 @@ public class StopTests {
      */
     @Test
     public void shouldGetDayOfWeekUnsuccessful() {
-        String date = "07/03/2023";
+        String date = "07-03-2023";
         String expectedDayOfWeek = "Friday";
   
         assertNotEquals(expectedDayOfWeek, stopService.getDayOfWeek(date));

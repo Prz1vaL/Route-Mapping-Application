@@ -238,7 +238,7 @@ public class CommandLine implements Serializable {
                         System.out.println(e.getMessage());
                         addDelStop();
                     }
-                    System.out.println("Enter the Date of the Schedule: (dd/mm/yyyy) ");
+                    System.out.println("Enter the Date of the Schedule: (dd-mm-yyyy) ");
                     line = scanner.nextLine();
                     final String date = line.trim();
                     try {
@@ -294,6 +294,7 @@ public class CommandLine implements Serializable {
                         } catch (IllegalArgumentException e) {
                             System.out.println(e.getMessage());
                             addDelStop();
+
                         }
                     } else if (answer.equalsIgnoreCase("N")) {
                         System.out.println("Going back to Main Menu...");
@@ -313,7 +314,7 @@ public class CommandLine implements Serializable {
                             System.out.println("Stop Schedule Identifier: " + entry.getKey());
                             System.out.println("Stop Name: " + entry.getValue().getStopName());
                             System.out.println("Stop Location: " + entry.getValue().getStopLocation());
-                            System.out.println("Stop Route Unique-ID: " + entry.getValue().getRouteNumber());
+                            System.out.println("Stop Route Unique-ID: " + entry.getValue().getUniqueRouteNumber());
                             System.out.println("Stop Route Name: " + entry.getValue().getRouteName());
                             System.out.println("Stop Date: " + entry.getValue().getDate());
                             System.out.println("Stop Day of the Week: " + entry.getValue().getDay());
@@ -369,13 +370,14 @@ public class CommandLine implements Serializable {
                     line = scanner.nextLine();
                     final String stopName = line.trim();
                     try {
+
                         routingResource.checkStopNamingConvention(stopName);
                         routingResource.checkIfStopExists(stopName);
                         viewRoutesByStop = routingResource.viewRoutesByStop(stopName);
 
                         for (Map.Entry<String, Stop> entry : viewRoutesByStop.entrySet()) {
                             routeName = entry.getValue().getRouteName();
-                            routeIdentifier = entry.getValue().getRouteNumber();
+                            routeIdentifier = entry.getValue().getUniqueRouteNumber();
                             System.out.println("Stop Schedule Identifier: " + entry.getKey());
                             System.out.println("Stop Name: " + entry.getValue().getStopName());
                             System.out.println("Stop Location: " + entry.getValue().getStopLocation());
@@ -430,7 +432,7 @@ public class CommandLine implements Serializable {
                         viewRoutesByStopTime = routingResource.ifStopExistsbyTime(stopName, time);
                         for (Map.Entry<String, Stop> entry : viewRoutesByStopTime.entrySet()) {
                             String routeName = entry.getValue().getRouteName();
-                            String routeIdentifier = entry.getValue().getRouteNumber();
+                            String routeIdentifier = entry.getValue().getUniqueRouteNumber();
                             System.out.println("Stop Schedule Identifier: " + entry.getKey());
                             System.out.println("Stop Name: " + entry.getValue().getStopName());
                             System.out.println("Stop Location: " + entry.getValue().getStopLocation());
@@ -477,7 +479,7 @@ public class CommandLine implements Serializable {
                         viewRoutesByStopDay = routingResource.viewRoutesByStopDay(stopName, day);
                         for (Map.Entry<String, Stop> entry : viewRoutesByStopDay.entrySet()) {
                             String routeName = entry.getValue().getRouteName();
-                            String routeIdentifier = entry.getValue().getRouteNumber();
+                            String routeIdentifier = entry.getValue().getUniqueRouteNumber();
                             System.out.println("Stop Schedule Identifier: " + entry.getKey());
                             System.out.println("Stop Name: " + entry.getValue().getStopName());
                             System.out.println("Stop Location: " + entry.getValue().getStopLocation());

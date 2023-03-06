@@ -7,7 +7,7 @@ import java.io.Serializable;
  * This class is used to store the information of a stop.
  * The class implements Serializable to allow the object to be passed between activities.
  * The class has the following attributes:
- * RouteNumber: The route number of the route that the stop is on.
+ * uniqueRouteNumber: The route number of the route that the stop is on.
  * RouteName: The name of the route that the stop is on.
  * scheduleIdentifier: The schedule identifier of the stop.
  * stopName: The name of the stop.
@@ -17,7 +17,7 @@ import java.io.Serializable;
  * departureTime: The departure time of the stop.
  * arrivalTime: The arrival time of the stop.
  * The class has the following methods:
- * getRouteNumber: Returns the route number of the route that the stop is on.
+ * getUniqueRouteNumber: Returns the route number of the route that the stop is on.
  * getRouteName: Returns the name of the route that the stop is on.
  * getScheduleIdentifier: Returns the schedule identifier of the stop.
  * getStopName: Returns the name of the stop.
@@ -28,7 +28,7 @@ import java.io.Serializable;
  * getArrivalTime: Returns the arrival time of the stop.
  */
 public class Stop implements Serializable {
-    private final String RouteNumber;
+    private final String uniqueRouteNumber;
     private final String RouteName;
     private final String scheduleIdentifier;
     private final String stopName;
@@ -40,8 +40,8 @@ public class Stop implements Serializable {
     private final String arrivalTime;
 
 
-    public Stop(String RouteNumber, String RouteName, String scheduleIdentifier, String stopName, String stopLocation, String date, String day, String departureTime, String arrivalTime) {
-        this.RouteNumber = RouteNumber;
+    public Stop(String uniqueRouteNumber, String RouteName, String scheduleIdentifier, String stopName, String stopLocation, String date, String day, String departureTime, String arrivalTime) {
+        this.uniqueRouteNumber = uniqueRouteNumber;
         this.RouteName = RouteName;
         this.scheduleIdentifier = scheduleIdentifier;
         this.stopName = stopName;
@@ -60,8 +60,8 @@ public class Stop implements Serializable {
         return stopName;
     }
 
-    public String getRouteNumber() {
-        return RouteNumber;
+    public String getUniqueRouteNumber() {
+        return uniqueRouteNumber;
     }
 
     public String getRouteName() {

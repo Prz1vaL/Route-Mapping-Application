@@ -1,4 +1,4 @@
-package com.stacs.routemappingapp.controller;
+package com.stacs.routemappingapp.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stacs.routemappingapp.model.route.Route;

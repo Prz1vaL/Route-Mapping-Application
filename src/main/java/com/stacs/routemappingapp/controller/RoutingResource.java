@@ -4,6 +4,8 @@ import com.stacs.routemappingapp.model.route.Route;
 import com.stacs.routemappingapp.model.stop.Stop;
 import com.stacs.routemappingapp.service.RouteService;
 import com.stacs.routemappingapp.service.StopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,9 +37,12 @@ public class RoutingResource implements Serializable {
         stopService.checkIfStopIDValid(stopNumber);
     }
 
-
     public void addRoute(String uniqueRouteNumber, String routeName, String destination, String startingPoint) {
         routeService.addRoute(uniqueRouteNumber, routeName, destination, startingPoint);
+    }
+
+    public Map<String, Route> callAllRoutes() {
+        return routeService.callAllRoutes();
     }
 
 
@@ -73,11 +78,6 @@ public class RoutingResource implements Serializable {
     public void deleteRoute(String uniqueRouteNumber) {
         routeService.deleteRoute(uniqueRouteNumber);
     }
-
-    public Map<String, Route> callAllRoutes() {
-        return routeService.callAllRoutes();
-    }
-
 
     public void checkIfRouteNameIDMatch(String uniqueRouteNumber, String routeName) {
         routeService.checkIfRouteNameIDMatch(uniqueRouteNumber, routeName);
@@ -143,10 +143,6 @@ public class RoutingResource implements Serializable {
     }
 
     public Map<String,Stop> ifStopExistsbyTime(String stopName, String time) {
-        return   stopService.ifStopExistsbyTime(stopName, time);
+        return stopService.ifStopExistsbyTime(stopName, time);
     }
-
-
-
-
 }
