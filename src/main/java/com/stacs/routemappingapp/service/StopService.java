@@ -1,14 +1,19 @@
 package com.stacs.routemappingapp.service;
 
+import com.stacs.routemappingapp.model.route.Route;
 import com.stacs.routemappingapp.model.stop.Stop;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Service
 public class StopService implements Serializable {
 
     // First Few Methods...
@@ -44,7 +49,7 @@ public class StopService implements Serializable {
 
     public String getDayOfWeek(String date) {
         String dayString;
-        String[] dateArray = date.split("/");
+        String[] dateArray = date.split("-");
         int day = Integer.parseInt(dateArray[0]);
         int month = Integer.parseInt(dateArray[1]);
         int year = Integer.parseInt(dateArray[2]);
@@ -81,7 +86,7 @@ public class StopService implements Serializable {
     }
 
     public void checkIfDateValid(String date) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         {
             try {
                 LocalDate.parse(date, f);
@@ -208,6 +213,7 @@ public class StopService implements Serializable {
         stop.clear();
     }
 
+    //This method is for listing all routes on a given stop at a certain time of day.
     public Map<String,Stop> ifStopExistsbyTime(String stopName, String time) {
         Map<String, Stop> ifStopExistsbyTime = new HashMap<>();
         if (stopName.isEmpty() || stopName.isBlank() || time.isEmpty() || time.isBlank()) {
@@ -229,4 +235,8 @@ public class StopService implements Serializable {
         return ifStopExistsbyTime;
     }
 
+    //Add by Li
+    public List<Stop> getStops() {
+        return new ArrayList<>(stop.values());
+    }
 }

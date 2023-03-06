@@ -2,11 +2,15 @@ package com.stacs.routemappingapp.service;
 
 
 import com.stacs.routemappingapp.model.route.Route;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Service
 public class RouteService implements Serializable {
 
     private static Map<String, Route> route = new HashMap<>();
@@ -63,7 +67,6 @@ public class RouteService implements Serializable {
         if (routeName.isEmpty() || routeName.isBlank()) {
             throw new IllegalArgumentException("No Route Name is given. \n");
         }
-
     }
 
     public void addRoute(String uniqueRouteNumber, String routeName, String destination, String startingPoint) {
@@ -124,6 +127,11 @@ public class RouteService implements Serializable {
             throw new IllegalArgumentException("Enter proper route name. \n");
         }
         return routeInfoByStopName;
+    }    //
+
+    //Add by Li
+    public List<Route> getRoutes() {
+        return new ArrayList<>(route.values());
     }
 
     public void wipeRoutes() {
