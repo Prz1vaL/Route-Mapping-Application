@@ -51,8 +51,8 @@
 <ol>
 <li> Clone the repository from the school Gitlab server.
 <li> Run <code> mvn clean compile</code> to build the project.
-<li> Run  <code> mvn tests</code> to run the tests.
-<li> Run <code> mvn spring:boot run </code> to access the API.
+<li> Run  <code> mvn test</code> to run the tests.
+<li> Run <code> mvn spring:boot run </code>  or <code> mvn org.springframework.boot:spring-boot-maven-plugin:run </code> to access the API. ( try both commands.)
 <li> Note : The port allocated for the API is : <strong> 8080 </strong>.
 <br/>
 </ol>
