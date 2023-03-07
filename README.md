@@ -56,6 +56,7 @@
 <li> Note : The port allocated for the API is : <strong> 8080 </strong>.
 <br/>
 </ol>
+
 ---
 
 <strong> For Frontend : </strong>
@@ -67,6 +68,7 @@
 <li> <strong> Note : Ensure to run the backend before running the front-end of the Application.</strong>
 </ol>
 <br/>
+
 ---
 
 ## EXTRA FUNCTIONALITIES 
