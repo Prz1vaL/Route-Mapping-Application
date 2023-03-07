@@ -1,16 +1,16 @@
 # CS5031 - Software Engineering Practices - P2
 
 
-## NAME :
+## NAME
 **ROUTE MAPPING SYSTEM USING SPRING FRAMEWORK AND RESTFUL API**
 --
-## DESCRIPTION :
+## DESCRIPTION
 <p> 
 <em> This is a <strong>RESTful API</strong> and <strong> web interface (UI using Vue) </strong> for a bus travel planner system. The system stores information about routes, stops, and timetable information for the routes. The aim of this project is to provide users with an easy and efficient way to access bus travel information.
 </em>
 </p>
 
-## Authors and acknowledgement :
+## Authors and acknowledgement
 
 ### Team Members :
 
@@ -66,7 +66,7 @@
 
 ---
 
-## EXTRA FUNCTIONALITIES :
+## EXTRA FUNCTIONALITIES 
 <ol>
 <li> Save to file.
 <li> Load to file.
@@ -90,7 +90,7 @@
 - Submit a merge request to merge your changes into the main branch.
 
 --- 
-### License :
+### License
 This project is done part of coursework of <strong> CS5031 - Software Engineering Practice</strong> of the <strong> Computer Science Dept of University of St.Andrews.</strong> </br>
 
 This project is licensed under the <code> MIT License. </code>
