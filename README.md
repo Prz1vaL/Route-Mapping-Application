@@ -94,7 +94,7 @@
 ### License
 This project is done part of coursework of <strong> CS5031 - Software Engineering Practice</strong> of the <strong> Computer Science Dept of University of St.Andrews.</strong> </br>
 
-This project is licensed under the <code> MIT License. </code>
+This project is licensed under the <code> MIT License. </code>See the <code>LICENSE</code> file for more information.
 
 
 
