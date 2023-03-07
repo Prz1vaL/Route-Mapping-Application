@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 /**
  * Command Line Interface.
+ * This class is used to display the menu and take in user input.
+ * This class is used for testing backend functionality.
  */
 public class CommandLine implements Serializable {
 

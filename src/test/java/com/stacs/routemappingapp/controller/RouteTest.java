@@ -1,7 +1,7 @@
 
 package com.stacs.routemappingapp.api;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stacs.routemappingapp.api.RouteController;
 import com.stacs.routemappingapp.model.route.Route;
 import com.stacs.routemappingapp.service.RouteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,15 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RouteTest {
@@ -106,27 +100,6 @@ class RouteTest {
             "Destination1", "StartingPoint1");
     }
 
-    // @Test
-    // void shouldTestForDuplicateInput() throws Exception {
-    //     // Set up test data
-    //     Map<String, String> data = new HashMap<>();
-    //     data.put("uniqueRouteNumber", "r123");
-    //     data.put("routeName", "Route 1");
-    //     data.put("destination", "Destination1");
-    //     data.put("startingPoint", "StartingPoint1");
-    
-    //     // Stub to throw an exception for duplicates
-    //     doNothing().when(routeService).addRoute("r123", "Route 1", "Destination1", "StartingPoint1");
-        
-    //     assertThrows(Exception.class, () -> {
-    //     // Perform the POST request with valid data
-    //     mockMvc.perform(MockMvcRequestBuilders.post("/routes")
-    //             .contentType(MediaType.APPLICATION_JSON)
-    //             .content(new ObjectMapper().writeValueAsString(data)))
-    //             .andExpect(MockMvcResultMatchers.status().isOk())
-    //             .andDo(MockMvcResultHandlers.print());
-    //     });
-    // }
 
     /*
      * Test to delete route
@@ -145,14 +118,4 @@ class RouteTest {
         verify(routeService, times(1)).deleteRoute("123");
     }
 
-    // @Test
-    // void shouldReturnNotFoundForInvalidRouteNumber() throws Exception {
-    //     String invalidRouteNumber = "999";
-
-    //     // Perform the DELETE request with an invalid route number
-    //     mockMvc.perform(MockMvcRequestBuilders.delete("/routes/{uniqueRouteNumber}", invalidRouteNumber)
-    //             .contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(MockMvcResultMatchers.status().isNotFound())
-    //             .andDo(MockMvcResultHandlers.print());
-    // }
 }
