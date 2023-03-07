@@ -4,6 +4,10 @@ import com.stacs.routemappingapp.controller.RoutingResource;
 import com.stacs.routemappingapp.service.StopService;
 import com.stacs.routemappingapp.view.CommandLine;
 
+/**
+ * This class is the main class of the application.
+ * This class is used for testing backend functionality.
+ */
 public class MainApp {
 
     public static void main(String[] args) {

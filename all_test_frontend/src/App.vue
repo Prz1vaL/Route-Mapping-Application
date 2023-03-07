@@ -15,6 +15,7 @@ import StopsList from "./components/StopList.vue";
 import ViewRoutesByStop from "./components/ViewRoutesByStop.vue";
 import ViewRoutesByStopAndDay from "./components/ViewRouteByStopAndDay.vue";
 import ViewRoutesByStopAndTime from "./components/ViewRoutesByStopAndTime.vue";
+
 export default {
   name: 'App',
   components: {

@@ -1,10 +1,8 @@
 package com.stacs.routemappingapp.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stacs.routemappingapp.api.StopController;
 import com.stacs.routemappingapp.model.stop.Stop;
 import com.stacs.routemappingapp.service.StopService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.hasItems;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StopTest {

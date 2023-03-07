@@ -1,18 +1,19 @@
 package com.stacs.routemappingapp;
 
-import com.stacs.routemappingapp.service.RouteService;
-import com.stacs.routemappingapp.view.CommandLine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
+/**
+ * Main class for the Spring Boot application.
+ * This class is responsible for starting the application.
+ */
 @SpringBootApplication
 public class RouteMappingAppApplication {
 
     public static void main(String[] args) {
 
         SpringApplication.run(RouteMappingAppApplication.class, args);
-       // SpringApplication.run(CommandLine.class, args);
+        // SpringApplication.run(CommandLine.class, args);
     }
 
 //    @Bean

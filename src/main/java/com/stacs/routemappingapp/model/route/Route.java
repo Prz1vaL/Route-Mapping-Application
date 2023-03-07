@@ -24,6 +24,12 @@ public class Route implements Serializable {
     private final String destination;
     private final String startingPoint;
 
+    /**
+     * @param uniqueRouteNumber The unique route number of the route.
+     * @param routeName         The name of the route.
+     * @param destination       The destination of the route.
+     * @param startingPoint     The starting point of the route.
+     */
     public Route(String uniqueRouteNumber, String routeName, String destination, String startingPoint) {
         this.uniqueRouteNumber = uniqueRouteNumber;
         this.routeName = routeName;
@@ -31,19 +37,31 @@ public class Route implements Serializable {
         this.startingPoint = startingPoint;
     }
 
+    /**
+     * @return The unique route number of the route.
+     */
     public String getUniqueRouteNumber() {
         return uniqueRouteNumber;
     }
 
+    /**
+     * @return The name of the route.
+     */
     public String getRouteName() {
         return routeName;
     }
 
+    /**
+     * @return The destination of the route.
+     */
     public String getDestination() {
         return destination;
     }
 
 
+    /**
+     * @return The starting point of the route.
+     */
     public String getStartingPoint() {
         return startingPoint;
     }
