@@ -8,4 +8,16 @@
             2) 220033341
             3) 220030476
 
-Test
+
+### FILE STRUCTURE :
+
+<ol>
+<li>.mvn/wrapper	
+<li>all_test_frontend	- **Front end Development** 
+<li>src - **Back end Development**
+        
+<li>README.md
+<li>mvnw	
+<li>mvnw.cmd
+<li>pom.xml
+</ol>
