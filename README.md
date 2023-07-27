@@ -14,9 +14,9 @@
 
 ### Team Members :
 
-            1) 220031985 - Model ,Service Layer and Controllers (Back-end) , Code-Review , Report.
-            2) 220033341 - UI and API (Front-End) & Report , Code -Review.
-            3) 220030476 - Tests (Front-end & Back-end), Code -Review , Report.
+            1) AJAY PRADEEP MAHADEVEN - Model ,Service Layer and Controllers (Back-end) , Code-Review , Report.
+            2) JIAN LI - UI and API (Front-End) & Report , Code -Review.
+            3) GABRIEL DOWNER - Tests (Front-end & Back-end), Code -Review , Report.
 
 
 --- 
